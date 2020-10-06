@@ -7,11 +7,4 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'SimpleSurvey';
-
-  buttonText = "a";
-
-  onClick() {
-    if(this.buttonText == "a")this.buttonText = "b";
-    else this.buttonText = "a";
-  }
 }
