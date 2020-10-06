@@ -6,5 +6,12 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'simpleSurveyFrontend';
+  title = 'SimpleSurvey';
+
+  buttonText = "a";
+
+  onClick() {
+    if(this.buttonText == "a")this.buttonText = "b";
+    else this.buttonText = "a";
+  }
 }
