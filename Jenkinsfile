@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage('Test') {
             steps {
-                echo 'Running Jenkinsfile Test stage'
+                npm run test
             }
         }
     }
