@@ -12,9 +12,9 @@ pipeline {
       }
     }
 
-    stage('Publish') {
+    stage('Push to registry') {
       steps {
-        echo 'Publishing container image to the local registry...'
+        echo 'Pushing container image to the local registry...'
         script {
           docker.withRegistry(registryUri) {
             dockerInstance.push("${env.BUILD_NUMBER}")
@@ -28,7 +28,7 @@ pipeline {
   }
   environment {
     imageName = 'simplesurvey_frontend'
-    registryUri = 'localhost'
+    registryUri = 'http://localhost:5000'
     dockerInstance = ''
   }
 }
