@@ -28,7 +28,7 @@ pipeline {
   }
   environment {
     imageName = 'simplesurvey_frontend'
-    registryUri = 'localhost:5000'
+    registryUri = 'localhost'
     dockerInstance = ''
   }
 }
