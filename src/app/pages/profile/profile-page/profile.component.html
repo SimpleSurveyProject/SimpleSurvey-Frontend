@@ -1,0 +1,17 @@
+<div class="content" *ngIf="currentUser; else loggedOut">
+  <h3>
+    <strong>Welcome, {{ currentUser.username }}!</strong>
+  </h3>
+
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>Token:</mat-panel-title>
+      <mat-panel-description> Click here to reveal </mat-panel-description>
+    </mat-expansion-panel-header>
+    <p>{{ currentUser.accessToken }}</p>
+  </mat-expansion-panel>
+</div>
+
+<ng-template #loggedOut>
+  <p class="content">Please log in.</p>
+</ng-template>

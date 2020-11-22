@@ -1,0 +1,88 @@
+<mat-horizontal-stepper linear labelPosition="bottom" #stepper>
+  <mat-step
+    [stepControl]="usernameFormControl"
+    errorMessage="The username is not valid"
+  >
+    <form>
+      <ng-template matStepLabel>Choose your username</ng-template>
+
+      <mat-form-field class="formfield">
+        <mat-label>Username</mat-label>
+        <input matInput [formControl]="usernameFormControl" />
+        <mat-error *ngIf="usernameFormControl.hasError('required')">
+          Username is <strong>required</strong>
+        </mat-error>
+        <mat-error *ngIf="usernameFormControl.hasError('minlength')">
+          The username must be at least 3 characters long
+        </mat-error>
+        <mat-error *ngIf="usernameFormControl.hasError('maxlength')">
+          The username can be a maximum of 20 characters long
+        </mat-error>
+      </mat-form-field>
+      <div class="button">
+        <button mat-raised-button color="primary" matStepperNext>Next</button>
+      </div>
+    </form>
+  </mat-step>
+
+  <mat-step
+    [stepControl]="passwordFormControl"
+    errorMessage="The password is not valid"
+  >
+    <form>
+      <ng-template matStepLabel>Choose your password</ng-template>
+
+      <mat-form-field class="formfield">
+        <mat-label>Password</mat-label>
+        <input type="password" matInput [formControl]="passwordFormControl" />
+        <mat-error *ngIf="passwordFormControl.hasError('required')">
+          Password is <strong>required</strong>
+        </mat-error>
+        <mat-error *ngIf="passwordFormControl.hasError('minlength')">
+          The password must be at least 6 characters long
+        </mat-error>
+        <mat-error *ngIf="passwordFormControl.hasError('maxlength')">
+          The password can be a maximum of 40 characters long
+        </mat-error>
+      </mat-form-field>
+      <div class="button">
+        <button mat-raised-button matStepperPrevious>Back</button>
+        <button
+          mat-raised-button
+          color="primary"
+          matStepperNext
+          (click)="onSubmit()"
+          style="margin-left: 1%"
+        >
+          Submit
+        </button>
+      </div>
+    </form>
+  </mat-step>
+
+  <mat-step>
+    <ng-template matStepLabel>Done</ng-template>
+    <div class="formfield">
+      <div *ngIf="loading">
+        <mat-spinner></mat-spinner>
+      </div>
+      <div *ngIf="!loading && successful">
+        <p>User successfully created!</p>
+      </div>
+      <div *ngIf="!loading && !successful">
+        <p>Something went wrong!</p>
+        <p>({{ errorText }})</p>
+      </div>
+      <div *ngIf="!loading">
+        <button
+          mat-raised-button
+          color="warn"
+          (click)="stepper.reset()"
+          style="margin-left: 1%"
+        >
+          Reset form
+        </button>
+      </div>
+    </div>
+  </mat-step>
+</mat-horizontal-stepper>
