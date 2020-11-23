@@ -1,28 +1,21 @@
-import { BrowserModule } from '@angular/platform-browser';
+import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { RouterModule } from '@angular/router';
 import { NavbarComponent } from './components/navbar/navbar.component';
 
-import {MatToolbarModule} from '@angular/material/toolbar'; 
-import {MatIconModule} from '@angular/material/icon'; 
-import { MatButtonModule } from '@angular/material/button';
-
 @NgModule({
-  declarations: [
-    NavbarComponent
-  ],
+  declarations: [NavbarComponent],
   imports: [
-    BrowserModule,
-    BrowserAnimationsModule,
-
+    CommonModule,
     MatToolbarModule,
     MatIconModule,
-    MatButtonModule
+    MatButtonModule,
+    RouterModule,
   ],
-  exports: [
-    NavbarComponent
-  ],
+  exports: [NavbarComponent],
   providers: [],
 })
-export class SharedModule { }
+export class SharedModule {}

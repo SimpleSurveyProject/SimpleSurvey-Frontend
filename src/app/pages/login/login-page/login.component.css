@@ -1,0 +1,11 @@
+.formfield {
+  width: 30%;
+  margin-left: 35%;
+  margin-top: 2%;
+}
+
+.button {
+  display: flex;
+  margin-left: 35%;
+  margin-top: 2%;
+}
