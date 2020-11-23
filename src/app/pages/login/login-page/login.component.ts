@@ -2,6 +2,7 @@ import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { TokenStorageService } from 'src/app/services/token-storage.service';
 
@@ -30,7 +31,9 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
-    private tokenStorage: TokenStorageService
+    private tokenStorage: TokenStorageService,
+    private router: Router,
+    private snackBar: MatSnackBar
   ) {}
 
   loading = false;
@@ -62,6 +65,10 @@ export class LoginComponent implements OnInit {
             this.tokenStorage.saveUser(data);
 
             this.isLoggedIn = true;
+            this.snackBar.open('Login successful', 'Close', {
+              duration: 3000,
+            });
+            this.router.navigate(['']);
             // window.location.reload();
           },
           (err) => {

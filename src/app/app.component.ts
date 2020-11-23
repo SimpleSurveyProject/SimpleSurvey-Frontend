@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { TokenStorageService } from './services/token-storage.service';
 
 @Component({
   selector: 'app-root',
@@ -8,23 +7,4 @@ import { TokenStorageService } from './services/token-storage.service';
 })
 export class AppComponent {
   title = 'SimpleSurvey';
-
-  isLoggedIn = false;
-  username: string;
-
-  constructor(private tokenStorageService: TokenStorageService) {}
-
-  ngOnInit() {
-    this.isLoggedIn = !!this.tokenStorageService.getToken();
-
-    if (this.isLoggedIn) {
-      const user = this.tokenStorageService.getUser();
-      this.username = user.username;
-    }
-  }
-
-  logout() {
-    this.tokenStorageService.signOut();
-    window.location.reload();
-  }
 }

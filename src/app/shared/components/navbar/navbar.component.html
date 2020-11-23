@@ -1,13 +1,15 @@
 <mat-toolbar color="primary">
-    <button mat-icon-button>
-        <mat-icon>menu</mat-icon>
-    </button>
-    <span>SimpleSurvey</span>
-    <span class="spacer"></span>
-    <button mat-icon-button>
-        <mat-icon>favorite</mat-icon>
-    </button>
-    <button mat-icon-button>
-        <mat-icon>share</mat-icon>
-    </button>
+  <button mat-icon-button>
+    <mat-icon>menu</mat-icon>
+  </button>
+  <span>SimpleSurvey</span>
+  <span class="spacer"></span>
+  <button mat-button [routerLink]="''">Home</button>
+  <button mat-button *ngIf="username" [routerLink]="'/profile'">
+    {{ username }}
+    <mat-icon>account_box</mat-icon>
+  </button>
+  <button mat-button *ngIf="username == null" [routerLink]="'/login'">
+    Login
+  </button>
 </mat-toolbar>

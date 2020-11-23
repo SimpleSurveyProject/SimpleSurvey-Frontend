@@ -23,6 +23,13 @@
         <button mat-raised-button color="primary" matStepperNext>Next</button>
       </div>
     </form>
+    <mat-divider style="margin-top: 2%"></mat-divider>
+    <div class="formfield">
+      <p>Don't have an account yet? Register now for free!</p>
+      <button mat-raised-button color="accent" [routerLink]="'/register'">
+        Register
+      </button>
+    </div>
   </mat-step>
 
   <mat-step
@@ -67,7 +74,7 @@
         <mat-spinner></mat-spinner>
       </div>
 
-      <div *ngIf="!isLoggedIn">
+      <div *ngIf="!isLoggedIn && !loading">
         <p>Something went wrong!</p>
         <p>({{ errorText }})</p>
       </div>

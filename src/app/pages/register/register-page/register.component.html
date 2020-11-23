@@ -68,6 +68,14 @@
       </div>
       <div *ngIf="!loading && successful">
         <p>User successfully created!</p>
+        <button
+          mat-raised-button
+          color="primary"
+          style="margin-bottom: 2%"
+          [routerLink]="'/login'"
+        >
+          Go to the login page
+        </button>
       </div>
       <div *ngIf="!loading && !successful">
         <p>Something went wrong!</p>
