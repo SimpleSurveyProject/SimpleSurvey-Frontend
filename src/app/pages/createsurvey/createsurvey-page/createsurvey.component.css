@@ -1,0 +1,11 @@
+.content {
+  width: 80%;
+  margin-left: 10%;
+  margin-top: 2%;
+}
+
+.button {
+  display: flex;
+  margin-left: 35%;
+  margin-top: 2%;
+}

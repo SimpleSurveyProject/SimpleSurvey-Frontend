@@ -2,7 +2,7 @@ import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
-const AUTH_API = 'http://simplesurvey.de:8443/api/auth/';
+const QUESTION_API = 'http://simplesurvey.de:8443/api/question/';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
@@ -11,26 +11,25 @@ const httpOptions = {
 @Injectable({
   providedIn: 'root',
 })
-export class AuthService {
+export class QuestionService {
   constructor(private http: HttpClient) {}
 
-  login(credentials): Observable<any> {
+  addQuestion(question): Observable<any> {
     return this.http.post(
-      AUTH_API + 'signin',
+      QUESTION_API + 'add',
       {
-        username: credentials.username,
-        password: credentials.password,
+        text: question.text,
+        surveyId: question.surveyId,
       },
       httpOptions
     );
   }
 
-  register(user): Observable<any> {
+  getQuestions(survey): Observable<any> {
     return this.http.post(
-      AUTH_API + 'signup',
+      QUESTION_API + 'get',
       {
-        username: user.username,
-        password: user.password,
+        surveyId: survey.id,
       },
       httpOptions
     );

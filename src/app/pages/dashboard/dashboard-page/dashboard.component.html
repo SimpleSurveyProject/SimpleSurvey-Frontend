@@ -1,0 +1,25 @@
+<div class="content">
+  <div *ngIf="loading">
+    <mat-spinner></mat-spinner>
+  </div>
+
+  <div *ngIf="!successful && !loading">
+    <p>Something went wrong!</p>
+    <p>({{ errorText }})</p>
+  </div>
+  <div *ngIf="successful && !loading">
+    <button mat-button [routerLink]="'/createsurvey'">Create new survey</button>
+    <h1>Your surveys</h1>
+    <mat-accordion>
+      <mat-expansion-panel *ngFor="let survey of surveys">
+        <mat-expansion-panel-header>
+          <mat-panel-title> {{ survey.title }} </mat-panel-title>
+          <mat-panel-description>
+            {{ survey.description }}
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <p *ngFor="let question of survey.questions">{{ question.text }}</p>
+      </mat-expansion-panel></mat-accordion
+    >
+  </div>
+</div>
