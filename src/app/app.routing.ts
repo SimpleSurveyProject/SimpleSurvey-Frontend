@@ -22,6 +22,20 @@ export const routes: Routes = [
       import('./pages/profile/profile.module').then((m) => m.ProfileModule),
   },
   {
+    path: 'dashboard',
+    loadChildren: () =>
+      import('./pages/dashboard/dashboard.module').then(
+        (m) => m.DashboardModule
+      ),
+  },
+  {
+    path: 'createsurvey',
+    loadChildren: () =>
+      import('./pages/createsurvey/createsurvey.module').then(
+        (m) => m.CreateSurveyModule
+      ),
+  },
+  {
     path: '**',
     redirectTo: '',
   },

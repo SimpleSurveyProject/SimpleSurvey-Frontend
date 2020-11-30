@@ -5,6 +5,9 @@
   <span>SimpleSurvey</span>
   <span class="spacer"></span>
   <button mat-button [routerLink]="''">Home</button>
+  <button mat-button *ngIf="username" [routerLink]="'/dashboard'">
+    Dashboard
+  </button>
   <button mat-button *ngIf="username" [routerLink]="'/profile'">
     {{ username }}
     <mat-icon>account_box</mat-icon>

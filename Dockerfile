@@ -3,7 +3,7 @@ WORKDIR /usr/src/app
 COPY package.json package-lock.json ./
 RUN npm install
 COPY . .
-RUN npm run build
+RUN npm run prodbuild
 
 FROM nginx:1.19.3-alpine
 COPY nginx.conf /etc/nginx/nginx.conf

@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
-const AUTH_API = environment.apiUrl + 'auth/';
+const QUESTION_API = environment.apiUrl + 'question/';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
@@ -12,26 +12,18 @@ const httpOptions = {
 @Injectable({
   providedIn: 'root',
 })
-export class AuthService {
+export class QuestionService {
   constructor(private http: HttpClient) {}
 
-  login(credentials): Observable<any> {
-    return this.http.post(
-      AUTH_API + 'signin',
-      {
-        username: credentials.username,
-        password: credentials.password,
-      },
-      httpOptions
-    );
+  addQuestions(questions): Observable<any> {
+    return this.http.post(QUESTION_API + 'add', questions, httpOptions);
   }
 
-  register(user): Observable<any> {
+  getQuestions(survey): Observable<any> {
     return this.http.post(
-      AUTH_API + 'signup',
+      QUESTION_API + 'get',
       {
-        username: user.username,
-        password: user.password,
+        surveyId: survey.id,
       },
       httpOptions
     );

@@ -1,0 +1,101 @@
+<mat-horizontal-stepper linear labelPosition="bottom" #stepper>
+  <mat-step [stepControl]="titleFormControl">
+    <form>
+      <ng-template matStepLabel>About your survey</ng-template>
+
+      <mat-form-field class="content">
+        <mat-label>Title</mat-label>
+        <input matInput [formControl]="titleFormControl" />
+        <mat-error *ngIf="titleFormControl.hasError('required')">
+          Title is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="content">
+        <mat-label>Description</mat-label>
+        <input matInput [formControl]="descriptionFormControl" />
+        <mat-error *ngIf="descriptionFormControl.hasError('required')">
+          Description is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+      <div class="button">
+        <button
+          mat-raised-button
+          color="primary"
+          matStepperNext
+          (click)="onSubmitSurvey()"
+          style="margin-left: 1%"
+        >
+          Next
+        </button>
+      </div>
+    </form>
+  </mat-step>
+
+  <mat-step>
+    <form>
+      <ng-template matStepLabel>Enter your question</ng-template>
+
+      <div *ngFor="let question of questions">
+        <mat-form-field class="content">
+          <mat-label>Question</mat-label>
+          <input
+            matInput
+            required
+            [(ngModel)]="question.question"
+            name="question_{{ question.id }}"
+          />
+        </mat-form-field>
+        <button
+          mat-raised-button
+          color="warn"
+          (click)="removeQuestion(question.id)"
+        >
+          Remove
+        </button>
+      </div>
+
+      <div class="button">
+        <button
+          mat-raised-button
+          color="primary"
+          matStepperNext
+          (click)="onSubmitQuestions()"
+          style="margin-left: 1%"
+        >
+          Submit
+        </button>
+      </div>
+    </form>
+    <button
+      class="addbutton"
+      color="accent"
+      mat-raised-button
+      (click)="addQuestion()"
+    >
+      Add question
+    </button>
+  </mat-step>
+
+  <mat-step>
+    <ng-template matStepLabel>Done</ng-template>
+    <div class="content">
+      <div *ngIf="!successful && !loading">
+        <p>Something went wrong!</p>
+        <p>({{ errorText }})</p>
+      </div>
+      <div *ngIf="successful">Survey successfully created.</div>
+      <button
+        mat-raised-button
+        style="margin-top: 2%"
+        color="primary"
+        [routerLink]="'/dashboard'"
+      >
+        Go to dashboard
+      </button>
+    </div>
+  </mat-step>
+</mat-horizontal-stepper>
+
+<div class="content" *ngIf="loading">
+  <mat-spinner></mat-spinner>
+</div>
