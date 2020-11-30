@@ -1,8 +1,9 @@
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
-const SURVEY_API = 'http://simplesurvey.de:8443/api/survey/';
+const SURVEY_API = environment.apiUrl + 'survey/';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' }),

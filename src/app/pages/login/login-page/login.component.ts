@@ -66,7 +66,7 @@ export class LoginComponent implements OnInit {
             this.snackBar.open('Login successful', 'Close', {
               duration: 3000,
             });
-            // window.location.href = 'simplesurvey.de';
+            window.location.href = 'simplesurvey.de';
           },
           (err) => {
             this.errorText = err.error.message;

@@ -11,12 +11,19 @@ import { FormControl, Validators } from '@angular/forms';
 export class CreateSurveyComponent {
   titleFormControl = new FormControl('', [Validators.required]);
   descriptionFormControl = new FormControl('', [Validators.required]);
-  questionFormControl = new FormControl('', [Validators.required]);
+
+  questions = [
+    {
+      id: 0,
+      question: '',
+    },
+  ];
 
   loading = false;
   successful: boolean;
   errorText: string;
   surveyId: number;
+  lastId = 0;
 
   constructor(
     private surveyService: SurveyService,
@@ -48,28 +55,37 @@ export class CreateSurveyComponent {
     }
   }
 
-  onSubmitQuestion() {
-    if (this.questionFormControl.valid) {
-      this.loading = true;
+  onSubmitQuestions() {
+    this.loading = true;
+    let data = [];
+    this.questions.forEach((question) => {
+      data.push({
+        text: question.question,
+        surveyId: this.surveyId,
+      });
+    });
+    this.questionService.addQuestions(data).subscribe(
+      (data) => {},
+      (err) => {
+        this.errorText = err.error.message;
+        this.loading = false;
+        this.successful = false;
+      }
+    );
+    this.loading = false;
+    this.successful = true;
+  }
 
-      this.questionService
-        .addQuestion({
-          text: this.questionFormControl.value,
-          surveyId: this.surveyId,
-        })
-        .subscribe(
-          (data) => {
-            this.loading = false;
-            this.successful = true;
-          },
-          (err) => {
-            this.errorText = err.error.message;
-            this.loading = false;
-            this.successful = false;
-          }
-        );
-    } else {
-      console.log('Input not valid!');
-    }
+  addQuestion() {
+    this.questions.push({
+      question: '',
+      id: this.lastId + 1,
+    });
+    this.lastId++;
+  }
+
+  removeQuestion(i: number) {
+    let position = this.questions.findIndex((x) => x.id === i);
+    this.questions.splice(position, 1);
   }
 }

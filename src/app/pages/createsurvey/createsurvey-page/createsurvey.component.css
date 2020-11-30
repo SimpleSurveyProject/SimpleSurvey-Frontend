@@ -6,6 +6,16 @@
 
 .button {
   display: flex;
-  margin-left: 35%;
+  margin-left: 10%;
   margin-top: 2%;
+}
+
+.addbutton {
+  display: flex;
+  margin-left: 85%;
+  margin-top: 2%;
+}
+
+::ng-deep .mat-horizontal-stepper-header {
+  pointer-events: none !important;
 }
