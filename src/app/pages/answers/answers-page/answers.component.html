@@ -1,0 +1,26 @@
+<div class="content" *ngIf="successful">
+  <mat-accordion>
+    <h1>Questions</h1>
+    <mat-expansion-panel *ngFor="let question of questions">
+      <mat-expansion-panel-header>
+        <mat-panel-title> {{ question.question }} </mat-panel-title>
+      </mat-expansion-panel-header>
+      <p style="width: 100%" *ngFor="let answer of question.answer">
+        {{ answer.text }}
+      </p>
+    </mat-expansion-panel>
+  </mat-accordion>
+
+  <button
+    mat-raised-button
+    style="margin-top: 2%"
+    color="primary"
+    [routerLink]="'/dashboard'"
+  >
+    Go to dashboard
+  </button>
+</div>
+
+<div class="content" *ngIf="!successful">
+  <p>{{ errorText }}</p>
+</div>
