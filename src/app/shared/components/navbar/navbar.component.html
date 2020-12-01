@@ -1,12 +1,12 @@
 <mat-toolbar color="primary">
-  <button mat-icon-button>
-    <mat-icon>menu</mat-icon>
-  </button>
   <span>SimpleSurvey</span>
   <span class="spacer"></span>
   <button mat-button [routerLink]="''">Home</button>
   <button mat-button *ngIf="username" [routerLink]="'/dashboard'">
     Dashboard
+  </button>
+  <button mat-button *ngIf="username" [routerLink]="'/fillout'">
+    Fill out survey
   </button>
   <button mat-button *ngIf="username" [routerLink]="'/profile'">
     {{ username }}

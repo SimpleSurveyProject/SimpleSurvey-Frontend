@@ -29,4 +29,14 @@ export class SurveyService {
   getOwnSurveys(): Observable<any> {
     return this.http.get(SURVEY_API + 'getown');
   }
+
+  getSurvey(id: number): Observable<any> {
+    return this.http.post(
+      SURVEY_API + 'getbyid',
+      {
+        surveyId: id,
+      },
+      httpOptions
+    );
+  }
 }

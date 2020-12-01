@@ -36,6 +36,16 @@ export const routes: Routes = [
       ),
   },
   {
+    path: 'fillout',
+    loadChildren: () =>
+      import('./pages/fillout/fillout.module').then((m) => m.FilloutModule),
+  },
+  {
+    path: 'answers',
+    loadChildren: () =>
+      import('./pages/answers/answers.module').then((m) => m.AnswersModule),
+  },
+  {
     path: '**',
     redirectTo: '',
   },

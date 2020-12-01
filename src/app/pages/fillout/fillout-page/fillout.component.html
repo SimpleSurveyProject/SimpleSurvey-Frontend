@@ -1,0 +1,48 @@
+<div *ngIf="!successful">
+  <form>
+    <mat-form-field class="formfield">
+      <mat-label>Survey ID</mat-label>
+      <input matInput [formControl]="surveyIdFormControl" />
+      <mat-error *ngIf="surveyIdFormControl.hasError('required')">
+        Username is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+    <div class="formbutton">
+      <button mat-raised-button color="primary" (click)="onSubmitId()">
+        Submit
+      </button>
+    </div>
+  </form>
+</div>
+
+<div class="content" *ngIf="successful && !answersSent">
+  <mat-accordion>
+    <h1>Questions</h1>
+    <mat-expansion-panel *ngFor="let question of questions">
+      <mat-expansion-panel-header>
+        <mat-panel-title> {{ question.question }} </mat-panel-title>
+      </mat-expansion-panel-header>
+      <mat-form-field style="width: 100%">
+        <mat-label>Answer</mat-label>
+        <textarea matInput required [(ngModel)]="question.answer"></textarea>
+      </mat-form-field>
+    </mat-expansion-panel>
+  </mat-accordion>
+  <div class="button">
+    <button mat-raised-button color="primary" (click)="onSubmitQuestions()">
+      Submit
+    </button>
+  </div>
+</div>
+
+<div class="content" *ngIf="answersSent">
+  <h1>Answers sent successfully.</h1>
+  <button
+    mat-raised-button
+    style="margin-top: 2%"
+    color="primary"
+    [routerLink]="'/dashboard'"
+  >
+    Go to dashboard
+  </button>
+</div>

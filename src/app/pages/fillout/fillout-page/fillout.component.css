@@ -1,0 +1,24 @@
+.content {
+  width: 80%;
+  margin-left: 10%;
+  margin-top: 2%;
+}
+
+.button {
+  display: flex;
+  margin-left: 80%;
+  margin-top: 2%;
+  margin-bottom: 2%;
+}
+
+.formfield {
+  width: 30%;
+  margin-left: 35%;
+  margin-top: 2%;
+}
+
+.formbutton {
+  display: flex;
+  margin-left: 35%;
+  margin-top: 2%;
+}

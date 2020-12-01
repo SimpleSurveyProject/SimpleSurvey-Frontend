@@ -17,6 +17,14 @@
             {{ survey.description }}
           </mat-panel-description>
         </mat-expansion-panel-header>
+        <button
+          mat-raised-button
+          color="primary"
+          [routerLink]="'/answers'"
+          [queryParams]="{ id: survey.id }"
+        >
+          Show answers
+        </button>
         <p *ngFor="let question of survey.questions">{{ question.text }}</p>
       </mat-expansion-panel></mat-accordion
     >
