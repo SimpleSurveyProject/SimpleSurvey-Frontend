@@ -12,7 +12,7 @@
     <mat-accordion>
       <mat-expansion-panel *ngFor="let survey of surveys">
         <mat-expansion-panel-header>
-          <mat-panel-title> {{ survey.title }} </mat-panel-title>
+          <mat-panel-title> {{ survey.title }} (ID: {{survey.id}}) </mat-panel-title>
           <mat-panel-description>
             {{ survey.description }}
           </mat-panel-description>
