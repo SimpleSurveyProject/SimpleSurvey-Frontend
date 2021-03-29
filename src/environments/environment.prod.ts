@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: 'simplesurvey.de/api/',
+  apiUrl: 'https://simplesurvey.de/api/',
 };
