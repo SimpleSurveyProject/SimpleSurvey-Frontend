@@ -1,4 +1,3 @@
-import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -9,12 +8,7 @@ import { TokenStorageService } from 'src/app/services/token-storage.service';
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
-  providers: [
-    {
-      provide: STEPPER_GLOBAL_OPTIONS,
-      useValue: { showError: true },
-    },
-  ],
+  providers: [],
 })
 export class LoginComponent implements OnInit {
   usernameFormControl = new FormControl('', [
@@ -37,6 +31,7 @@ export class LoginComponent implements OnInit {
   loading = false;
   successful: boolean;
   errorText: string;
+  submitted = false;
 
   isLoggedIn = false;
 
@@ -49,6 +44,7 @@ export class LoginComponent implements OnInit {
   onSubmit() {
     if (this.usernameFormControl.valid && this.passwordFormControl.valid) {
       this.loading = true;
+      this.submitted = true;
       this.authService
         .login({
           username: this.usernameFormControl.value,
@@ -59,7 +55,7 @@ export class LoginComponent implements OnInit {
             this.loading = false;
             this.successful = true;
 
-            this.tokenStorage.saveToken(data.accessToken);
+            this.tokenStorage.saveToken(data.token);
             this.tokenStorage.saveUser(data);
 
             this.isLoggedIn = true;

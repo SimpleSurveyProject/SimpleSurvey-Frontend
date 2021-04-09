@@ -1,19 +1,12 @@
-import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 import { Component } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css'],
-  providers: [
-    {
-      provide: STEPPER_GLOBAL_OPTIONS,
-      useValue: { showError: true },
-    },
-  ],
+  providers: [],
 })
 export class RegisterComponent {
   usernameFormControl = new FormControl('', [
@@ -32,10 +25,12 @@ export class RegisterComponent {
   loading = false;
   successful: boolean;
   errorText: string;
+  submitted = false;
 
   onSubmit() {
     if (this.usernameFormControl.valid && this.passwordFormControl.valid) {
       this.loading = true;
+      this.submitted = true;
       this.authService
         .register({
           username: this.usernameFormControl.value,

@@ -4,7 +4,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { MatStepperModule } from '@angular/material/stepper';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { RegisterComponent } from './register-page/register.component';
 import { routing } from './register.routing';
@@ -20,7 +19,6 @@ import { routing } from './register.routing';
     FormsModule,
 
     MatButtonModule,
-    MatStepperModule,
     MatProgressSpinnerModule,
 
     routing,
