@@ -22,7 +22,6 @@ import { routing } from './login.routing';
     FormsModule,
 
     MatButtonModule,
-    MatStepperModule,
     MatProgressSpinnerModule,
     MatSnackBarModule,
     MatDividerModule,
