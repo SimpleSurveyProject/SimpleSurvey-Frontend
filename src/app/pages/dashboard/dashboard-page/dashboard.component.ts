@@ -1,4 +1,6 @@
+import { Clipboard } from '@angular/cdk/clipboard';
 import { Component, OnInit } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { QuestionService } from './../../../services/question.service';
 import { SurveyService } from './../../../services/survey.service';
 
@@ -15,7 +17,9 @@ export class DashboardComponent implements OnInit {
 
   constructor(
     private surveyService: SurveyService,
-    private questionService: QuestionService
+    private questionService: QuestionService,
+    private snackBar: MatSnackBar,
+    private clipboard: Clipboard
   ) {}
 
   ngOnInit() {
@@ -48,5 +52,12 @@ export class DashboardComponent implements OnInit {
     });
     this.loading = false;
     this.successful = true;
+  }
+
+  copyShareUrl(id: number) {
+    this.clipboard.copy('https://simplesurvey.de//fillout?id=' + id);
+    this.snackBar.open('Link copied!', 'Close', {
+      duration: 3000,
+    });
   }
 }

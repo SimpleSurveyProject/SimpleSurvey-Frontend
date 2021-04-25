@@ -1,5 +1,5 @@
-import { FilloutComponent } from './fillout.component';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { FilloutComponent } from './fillout.component';
 
 describe('FilloutComponent', () => {
   let component: FilloutComponent;
