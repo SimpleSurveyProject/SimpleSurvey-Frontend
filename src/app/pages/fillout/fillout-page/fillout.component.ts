@@ -10,7 +10,7 @@ import { SurveyService } from './../../../services/survey.service';
   templateUrl: './fillout.component.html',
   styleUrls: ['./fillout.component.css'],
 })
-export class FilloutComponent {
+export class FilloutComponent implements OnInit {
   surveyIdFormControl = new FormControl('', [Validators.required]);
 
   id: number;
@@ -24,8 +24,30 @@ export class FilloutComponent {
   constructor(
     private answerService: AnswerService,
     private surveyService: SurveyService,
-    private questionService: QuestionService
+    private questionService: QuestionService,
+    private activatedRoute: ActivatedRoute
   ) {}
+
+  ngOnInit() {
+    this.id = parseInt(this.activatedRoute.snapshot.queryParamMap.get('id'));
+
+    if (this.id != null) {
+      this.surveyService.getSurvey(this.id).subscribe(
+        (data) => {
+          this.successful = true;
+          this.survey = data.survey;
+          this.getQuestions();
+          this.loading = false;
+        },
+
+        (err) => {
+          this.errorText = err.error.message;
+          this.loading = false;
+          this.successful = false;
+        }
+      );
+    }
+  }
 
   onSubmitId() {
     this.id = this.surveyIdFormControl.value;

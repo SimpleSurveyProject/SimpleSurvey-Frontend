@@ -36,13 +36,27 @@
       <ng-template matStepLabel>Enter your question</ng-template>
 
       <div *ngFor="let question of questions">
+        <mat-radio-group
+          class="content"
+          [(ngModel)]="question.style"
+          name="style_{{ question.id }}"
+        >
+          <mat-radio-button
+            style="margin-right: 3%"
+            *ngFor="let style of styles; let i = index"
+            [value]="style.text"
+            [checked]="i === 0"
+          >
+            {{ style.description }}
+          </mat-radio-button>
+        </mat-radio-group>
         <mat-form-field class="content">
           <mat-label>Question</mat-label>
           <input
             matInput
             required
-            [(ngModel)]="question.question"
-            name="question_{{ question.id }}"
+            [(ngModel)]="question.text"
+            name="text_{{ question.id }}"
           />
         </mat-form-field>
         <button
@@ -52,6 +66,7 @@
         >
           Remove
         </button>
+        <mat-divider style="margin-top: 2%; margin-bottom: 2%"></mat-divider>
       </div>
 
       <div class="button">

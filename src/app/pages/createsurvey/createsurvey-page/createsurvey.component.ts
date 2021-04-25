@@ -1,7 +1,7 @@
-import { QuestionService } from './../../../services/question.service';
-import { Component, OnInit } from '@angular/core';
-import { SurveyService } from './../../../services/survey.service';
+import { Component } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
+import { QuestionService } from './../../../services/question.service';
+import { SurveyService } from './../../../services/survey.service';
 
 @Component({
   selector: 'app-createsurvey',
@@ -15,7 +15,23 @@ export class CreateSurveyComponent {
   questions = [
     {
       id: 0,
-      question: '',
+      style: '',
+      text: '',
+    },
+  ];
+
+  styles = [
+    {
+      text: 'TEXT',
+      description: 'Freetext answer',
+    },
+    {
+      text: 'YESNO',
+      description: 'Yes/No answer',
+    },
+    {
+      text: 'ONETOTEN',
+      description: 'Rate from 1 to 10 answer',
     },
   ];
 
@@ -60,7 +76,9 @@ export class CreateSurveyComponent {
     let data = [];
     this.questions.forEach((question) => {
       data.push({
-        text: question.question,
+        position: question.id,
+        style: question.style,
+        text: question.text,
         surveyId: this.surveyId,
       });
     });
@@ -78,8 +96,9 @@ export class CreateSurveyComponent {
 
   addQuestion() {
     this.questions.push({
-      question: '',
       id: this.lastId + 1,
+      style: '',
+      text: '',
     });
     this.lastId++;
   }
