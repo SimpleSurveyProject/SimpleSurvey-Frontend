@@ -19,6 +19,17 @@ export class QuestionService {
     return this.http.post(QUESTION_API + 'add', questions, httpOptions);
   }
 
+  clearAllQuestions(surveyId) {
+    console.log(surveyId);
+    return this.http.post(
+      QUESTION_API + 'clear',
+      {
+        surveyId: surveyId,
+      },
+      httpOptions
+    );
+  }
+
   getQuestions(survey): Observable<any> {
     return this.http.post(
       QUESTION_API + 'get',

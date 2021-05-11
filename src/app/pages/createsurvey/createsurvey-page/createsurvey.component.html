@@ -19,11 +19,11 @@
       </mat-form-field>
       <div class="button">
         <button
+          [disabled]="!nextButtonEnabled"
           mat-raised-button
           color="primary"
           matStepperNext
           (click)="onSubmitSurvey()"
-          style="margin-left: 1%"
         >
           Next
         </button>
@@ -71,13 +71,14 @@
 
       <div class="button">
         <button
+          [disabled]="!createButtonEnabled"
           mat-raised-button
           color="primary"
           matStepperNext
           (click)="onSubmitQuestions()"
           style="margin-left: 1%"
         >
-          Submit
+          {{stringButtonText}}
         </button>
       </div>
     </form>
@@ -87,7 +88,7 @@
       mat-raised-button
       (click)="addQuestion()"
     >
-      Add question
+      add new question
     </button>
   </mat-step>
 
@@ -98,7 +99,7 @@
         <p>Something went wrong!</p>
         <p>({{ errorText }})</p>
       </div>
-      <div *ngIf="successful">Survey successfully created.</div>
+      <div *ngIf="successful">Survey successfully {{isEdit ? "edited" : "created"}}.</div>
       <button
         mat-raised-button
         style="margin-top: 2%"
