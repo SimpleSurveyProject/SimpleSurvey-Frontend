@@ -26,6 +26,18 @@ export class SurveyService {
     );
   }
 
+  editSurvey(survey): Observable<any> {
+    return this.http.post(
+      SURVEY_API + 'editsurvey',
+      {
+        description: survey.description,
+        title: survey.title,
+        surveyId: survey.id,
+      },
+      httpOptions
+    );
+  }
+
   getOwnSurveys(): Observable<any> {
     return this.http.get(SURVEY_API + 'getown');
   }

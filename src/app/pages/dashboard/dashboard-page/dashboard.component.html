@@ -25,6 +25,16 @@
         >
           Show answers
         </button>
+		
+		<button
+          mat-raised-button
+          color="warn"
+		  style="margin-left: 2%"
+          [routerLink]="'/createsurvey'"
+          [queryParams]="{ id: survey.id }"
+        >
+          Edit survey
+        </button>
 
         <button
           mat-raised-button
