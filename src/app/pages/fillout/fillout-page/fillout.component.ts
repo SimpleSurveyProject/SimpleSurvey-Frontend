@@ -31,7 +31,7 @@ export class FilloutComponent implements OnInit {
   ngOnInit() {
     this.id = parseInt(this.activatedRoute.snapshot.queryParamMap.get('id'));
 
-    if (this.id != null) {
+    if (this.id) {
       this.surveyService.getSurvey(this.id).subscribe(
         (data) => {
           this.successful = true;
@@ -75,6 +75,7 @@ export class FilloutComponent implements OnInit {
           this.questions.push({
             question: question.text,
             questionid: question.id,
+            style: question.style,
             answer: '',
           });
         });
