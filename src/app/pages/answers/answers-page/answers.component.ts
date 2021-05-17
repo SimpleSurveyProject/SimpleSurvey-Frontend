@@ -38,6 +38,7 @@ export class AnswersComponent implements OnInit {
                 this.questions.push({
                   question: question.text,
                   questionid: question.id,
+                  style: question.style,
                   answer: data.answers,
                 });
               },

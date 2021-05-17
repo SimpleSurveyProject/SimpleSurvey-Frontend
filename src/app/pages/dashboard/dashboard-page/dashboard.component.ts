@@ -55,7 +55,7 @@ export class DashboardComponent implements OnInit {
   }
 
   copyShareUrl(id: number) {
-    this.clipboard.copy('https://simplesurvey.de//fillout?id=' + id);
+    this.clipboard.copy('https://simplesurvey.de/fillout?id=' + id);
     this.snackBar.open('Link copied!', 'Close', {
       duration: 3000,
     });
