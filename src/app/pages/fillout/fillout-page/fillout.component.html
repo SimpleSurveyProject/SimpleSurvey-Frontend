@@ -20,7 +20,7 @@
     <h1>Questions</h1>
     <mat-expansion-panel *ngFor="let question of questions">
       <mat-expansion-panel-header>
-        <mat-panel-title> {{ question.question }} </mat-panel-title>
+        <mat-panel-title> {{ question.text }} </mat-panel-title>
       </mat-expansion-panel-header>
       <mat-form-field style="width: 100%" *ngIf="question.style == 'TEXT'">
         <mat-label>Answer</mat-label>

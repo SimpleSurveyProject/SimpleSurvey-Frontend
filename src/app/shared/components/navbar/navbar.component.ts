@@ -7,12 +7,12 @@ import { TokenStorageService } from 'src/app/services/token-storage.service';
   styleUrls: ['./navbar.component.css'],
 })
 export class NavbarComponent {
-  isLoggedIn = false;
-  username: string;
+  isLoggedIn!: boolean;
+  username: string = '';
 
   constructor(private tokenStorageService: TokenStorageService) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.isLoggedIn = !!this.tokenStorageService.getToken();
 
     if (this.isLoggedIn) {

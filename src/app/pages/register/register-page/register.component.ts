@@ -23,11 +23,11 @@ export class RegisterComponent {
   constructor(private authService: AuthService) {}
 
   loading = false;
-  successful: boolean;
-  errorText: string;
+  successful!: boolean;
+  errorText: string = '';
   submitted = false;
 
-  onSubmit() {
+  onSubmit(): void {
     if (this.usernameFormControl.valid && this.passwordFormControl.valid) {
       this.loading = true;
       this.submitted = true;
@@ -37,7 +37,7 @@ export class RegisterComponent {
           password: this.passwordFormControl.value,
         })
         .subscribe(
-          (data) => {
+          (_data) => {
             this.loading = false;
             this.successful = true;
           },

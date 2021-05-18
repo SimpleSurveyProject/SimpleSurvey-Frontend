@@ -30,18 +30,22 @@ export class LoginComponent implements OnInit {
     private tokenStorageService: TokenStorageService
   ) {}
 
-  loading = false;
-  successful: boolean;
-  errorText: string;
-  submitted = false;
+  loading: boolean = false;
+  successful!: boolean;
+  errorText: string = '';
+  submitted: boolean = false;
 
   isLoggedIn = false;
 
-  returnUrl: string;
+  returnUrl: string = '';
 
-  ngOnInit() {
-    this.returnUrl =
+  ngOnInit(): void {
+    const returnUrlString: string | null =
       this.activatedRoute.snapshot.queryParamMap.get('returnUrl');
+    if (returnUrlString != null) {
+      this.returnUrl = returnUrlString;
+    }
+
     if (this.returnUrl) {
       this.snackBar.open('Please login in order to continue', 'Close', {
         duration: 5000,
@@ -55,7 +59,7 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  onSubmit() {
+  onSubmit(): void {
     if (this.usernameFormControl.valid && this.passwordFormControl.valid) {
       this.loading = true;
       this.submitted = true;

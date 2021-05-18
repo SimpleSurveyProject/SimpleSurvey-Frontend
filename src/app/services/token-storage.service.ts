@@ -9,30 +9,38 @@ const USER_KEY = 'auth-user';
 export class TokenStorageService {
   constructor() {}
 
-  signOut() {
+  signOut(): void {
     window.localStorage.clear();
   }
 
-  public saveToken(token: string) {
+  public saveToken(token: string): void {
     window.localStorage.removeItem(TOKEN_KEY);
     window.localStorage.setItem(TOKEN_KEY, token);
   }
 
   public getToken(): string {
-    return localStorage.getItem(TOKEN_KEY);
+    const tokenKey: string | null = localStorage.getItem(TOKEN_KEY);
+    if (tokenKey != null) {
+      return tokenKey;
+    }
+    return '';
   }
 
-  public saveUser(user) {
+  public saveUser(user: any): void {
     window.localStorage.removeItem(USER_KEY);
     window.localStorage.setItem(USER_KEY, JSON.stringify(user));
   }
 
-  public getUser() {
-    return JSON.parse(localStorage.getItem(USER_KEY));
+  public getUser(): any {
+    const userKey: string | null = localStorage.getItem(USER_KEY);
+    if (userKey != null) {
+      return userKey;
+    }
+    return '';
   }
 
-  public isExpired() {
-    const expiry = JSON.parse(atob(this.getToken().split('.')[1])).exp;
+  public isExpired(): boolean {
+    const expiry: any = JSON.parse(atob(this.getToken().split('.')[1])).exp;
     return Math.floor(new Date().getTime() / 1000) >= expiry;
   }
 }

@@ -12,7 +12,7 @@ const TOKEN_HEADER_KEY = 'Authorization';
 export class AuthInterceptor implements HttpInterceptor {
   constructor(private token: TokenStorageService) {}
 
-  intercept(req: HttpRequest<any>, next: HttpHandler) {
+  intercept(req: HttpRequest<any>, next: HttpHandler): any {
     let authReq = req;
     const token = this.token.getToken();
     if (token != null) {
