@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { AuthGuard } from './services/authguard.service';
 
 export const routes: Routes = [
   {
@@ -20,6 +21,7 @@ export const routes: Routes = [
     path: 'profile',
     loadChildren: () =>
       import('./pages/profile/profile.module').then((m) => m.ProfileModule),
+    canActivate: [AuthGuard],
   },
   {
     path: 'dashboard',
@@ -27,6 +29,7 @@ export const routes: Routes = [
       import('./pages/dashboard/dashboard.module').then(
         (m) => m.DashboardModule
       ),
+    canActivate: [AuthGuard],
   },
   {
     path: 'createsurvey',
@@ -34,16 +37,19 @@ export const routes: Routes = [
       import('./pages/createsurvey/createsurvey.module').then(
         (m) => m.CreateSurveyModule
       ),
+    canActivate: [AuthGuard],
   },
   {
     path: 'fillout',
     loadChildren: () =>
       import('./pages/fillout/fillout.module').then((m) => m.FilloutModule),
+    canActivate: [AuthGuard],
   },
   {
     path: 'answers',
     loadChildren: () =>
       import('./pages/answers/answers.module').then((m) => m.AnswersModule),
+    canActivate: [AuthGuard],
   },
   {
     path: '**',

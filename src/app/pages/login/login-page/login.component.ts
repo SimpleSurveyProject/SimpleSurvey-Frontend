@@ -1,8 +1,9 @@
+import { TokenStorageService } from 'src/app/services/token-storage.service';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { ActivatedRoute } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
-import { TokenStorageService } from 'src/app/services/token-storage.service';
 
 @Component({
   selector: 'app-login',
@@ -24,8 +25,9 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
-    private tokenStorage: TokenStorageService,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private activatedRoute: ActivatedRoute,
+    private tokenStorageService: TokenStorageService
   ) {}
 
   loading = false;
@@ -35,8 +37,20 @@ export class LoginComponent implements OnInit {
 
   isLoggedIn = false;
 
+  returnUrl: string;
+
   ngOnInit() {
-    if (this.tokenStorage.getToken()) {
+    this.returnUrl =
+      this.activatedRoute.snapshot.queryParamMap.get('returnUrl');
+    if (this.returnUrl) {
+      this.snackBar.open('Please login in order to continue', 'Close', {
+        duration: 5000,
+      });
+    }
+    if (
+      this.tokenStorageService.getToken() &&
+      !this.tokenStorageService.isExpired()
+    ) {
       this.isLoggedIn = true;
     }
   }
@@ -55,14 +69,18 @@ export class LoginComponent implements OnInit {
             this.loading = false;
             this.successful = true;
 
-            this.tokenStorage.saveToken(data.token);
-            this.tokenStorage.saveUser(data);
+            this.tokenStorageService.saveToken(data.token);
+            this.tokenStorageService.saveUser(data);
 
             this.isLoggedIn = true;
             this.snackBar.open('Login successful', 'Close', {
               duration: 3000,
             });
-            window.location.href = 'simplesurvey.de';
+            if (this.returnUrl) {
+              window.location.href = this.returnUrl;
+            } else {
+              window.location.href = 'simplesurvey.de';
+            }
           },
           (err) => {
             this.errorText = err.error.message;

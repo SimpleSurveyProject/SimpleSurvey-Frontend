@@ -16,7 +16,6 @@ export class ProfileComponent implements OnInit {
   }
 
   logout() {
-    console.log('aha');
     this.tokenStorageService.signOut();
     window.location.reload();
   }
