@@ -56,8 +56,21 @@ export class DashboardComponent implements OnInit {
 
   copyShareUrl(id: number) {
     this.clipboard.copy('https://simplesurvey.de//fillout?id=' + id);
-    this.snackBar.open('Link copied!', 'Close', {
+    this.snackBar.open('Link copied to clipboard!', 'Close', {
       duration: 3000,
     });
+  }
+
+  deleteSurvey(id: number) {
+    this.surveyService.deleteSurvey(id).subscribe(
+      (data) => {
+        window.location.reload();
+      },
+      (err) => {
+        this.snackBar.open('Survey could not be deleted.', 'Close', {
+          duration: 3000,
+        });
+      }
+    );
   }
 }

@@ -23,17 +23,17 @@
           [routerLink]="'/answers'"
           [queryParams]="{ id: survey.id }"
         >
-          Show answers
+        <mat-icon>show_chart</mat-icon>
         </button>
-		
-		<button
+
+		    <button
           mat-raised-button
           color="warn"
-		  style="margin-left: 2%"
+		      style="margin-left: 2%"
           [routerLink]="'/createsurvey'"
           [queryParams]="{ id: survey.id }"
         >
-          Edit survey
+        <mat-icon>edit</mat-icon>
         </button>
 
         <button
@@ -42,11 +42,26 @@
           style="margin-left: 2%"
           (click)="copyShareUrl(survey.id)"
         >
-          Share survey link
+        <mat-icon>share</mat-icon>
         </button>
+
+        <button
+        mat-raised-button
+        color="warn"
+        style="margin-left: 2%"
+        (click)="deleteSurvey(survey.id)"
+        >
+        <mat-icon>delete</mat-icon>
+        </button>
+
+
+
+
+
         <p *ngFor="let question of survey.questions">{{ question.text }}</p>
       </mat-expansion-panel></mat-accordion
     >
+    <br>
     <button
       class="button"
       mat-raised-button
