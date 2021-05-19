@@ -16,7 +16,11 @@ export class AuthGuard implements CanActivate {
     private tokenStorageService: TokenStorageService
   ) {}
 
-  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+  canActivate(
+    // tslint:disable-next-line: variable-name
+    _route: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot
+  ): boolean {
     if (
       this.tokenStorageService.getToken() &&
       !this.tokenStorageService.isExpired()

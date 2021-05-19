@@ -2,17 +2,15 @@
   <span>SimpleSurvey</span>
   <span class="spacer"></span>
   <button mat-button [routerLink]="''">Home</button>
-  <button mat-button *ngIf="username" [routerLink]="'/dashboard'">
+  <button mat-button *ngIf="isLoggedIn" [routerLink]="'/dashboard'">
     Dashboard
   </button>
-  <button mat-button *ngIf="username" [routerLink]="'/fillout'">
+  <button mat-button *ngIf="isLoggedIn" [routerLink]="'/fillout'">
     Fill out survey
   </button>
-  <button mat-button *ngIf="username" [routerLink]="'/profile'">
+  <button mat-button *ngIf="isLoggedIn" [routerLink]="'/profile'">
     {{ username }}
     <mat-icon>account_box</mat-icon>
   </button>
-  <button mat-button *ngIf="username == null" [routerLink]="'/login'">
-    Login
-  </button>
+  <button mat-button *ngIf="!isLoggedIn" [routerLink]="'/login'">Login</button>
 </mat-toolbar>

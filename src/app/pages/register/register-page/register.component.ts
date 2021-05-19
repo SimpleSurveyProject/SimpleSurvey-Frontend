@@ -23,11 +23,11 @@ export class RegisterComponent {
   constructor(private authService: AuthService) {}
 
   loading = false;
-  successful: boolean;
-  errorText: string;
+  successful!: boolean;
+  errorText = '';
   submitted = false;
 
-  onSubmit() {
+  onSubmit(): void {
     if (this.usernameFormControl.valid && this.passwordFormControl.valid) {
       this.loading = true;
       this.submitted = true;
@@ -37,12 +37,13 @@ export class RegisterComponent {
           password: this.passwordFormControl.value,
         })
         .subscribe(
-          (data) => {
+          // tslint:disable-next-line: variable-name
+          (_data) => {
             this.loading = false;
             this.successful = true;
           },
           (err) => {
-            if (err.error.message == 'Error: Username is already taken!') {
+            if (err.error.message === 'Error: Username is already taken!') {
               this.usernameFormControl.setErrors({ incorrect: true });
             }
             this.errorText = err.error.message;

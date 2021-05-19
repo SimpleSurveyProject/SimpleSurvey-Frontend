@@ -3,11 +3,34 @@
     <h1>Questions</h1>
     <mat-expansion-panel *ngFor="let question of questions">
       <mat-expansion-panel-header>
-        <mat-panel-title> {{ question.question }} </mat-panel-title>
+        <mat-panel-title> {{ question.text }} </mat-panel-title>
       </mat-expansion-panel-header>
-      <p style="width: 100%" *ngFor="let answer of question.answer">
-        {{ answer.text }}
-      </p>
+      <div *ngIf="question.style == 'TEXT'">
+        <p style="width: 100%" *ngFor="let answer of question.answers">
+          {{ answer.text }}
+        </p>
+      </div>
+      <div *ngIf="question.style == 'YESNO'">
+        <apx-chart
+          class="center"
+          style="width: 30%"
+          [series]="question.series"
+          [chart]="pieChart"
+          [responsive]="responsive"
+          [labels]="pieLabels"
+        ></apx-chart>
+      </div>
+      <div *ngIf="question.style == 'ONETOTEN'">
+        <apx-chart
+          class="center"
+          style="width: 50%"
+          [series]="question.series"
+          [chart]="barChart"
+          [responsive]="responsive"
+          [labels]="barLabels"
+          [plotOptions]="plotOptions"
+        ></apx-chart>
+      </div>
     </mat-expansion-panel>
   </mat-accordion>
 

@@ -1,3 +1,4 @@
+import { Answer } from './../interfaces/answer';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
@@ -15,15 +16,11 @@ const httpOptions = {
 export class AnswerService {
   constructor(private http: HttpClient) {}
 
-  addAnswers(answers): Observable<any> {
+  addAnswers(answers: Answer[]): Observable<any> {
     return this.http.post(ANSWER_API + 'add', answers, httpOptions);
   }
 
-  getAnswers(questionId): Observable<any> {
-    return this.http.post(
-      ANSWER_API + 'get',
-      { questionId: questionId },
-      httpOptions
-    );
+  getAnswers(questionId: number): Observable<any> {
+    return this.http.post(ANSWER_API + 'get', { questionId }, httpOptions);
   }
 }

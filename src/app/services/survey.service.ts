@@ -1,3 +1,4 @@
+import { Survey } from 'src/app/interfaces/survey';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
@@ -15,7 +16,7 @@ const httpOptions = {
 export class SurveyService {
   constructor(private http: HttpClient) {}
 
-  createSurvey(survey): Observable<any> {
+  createSurvey(survey: any): Observable<any> {
     return this.http.post(
       SURVEY_API + 'create',
       {
@@ -26,7 +27,7 @@ export class SurveyService {
     );
   }
 
-  editSurvey(survey): Observable<any> {
+  editSurvey(survey: Survey): Observable<any> {
     return this.http.post(
       SURVEY_API + 'editsurvey',
       {

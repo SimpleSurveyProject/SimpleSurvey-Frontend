@@ -1,5 +1,7 @@
+import { Question, QuestionWithSeries } from './../../../interfaces/question';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { ApexPlotOptions, ApexResponsive } from 'ng-apexcharts';
 import { AnswerService } from 'src/app/services/answer.service';
 import { QuestionService } from './../../../services/question.service';
 
@@ -9,38 +11,144 @@ import { QuestionService } from './../../../services/question.service';
   styleUrls: ['./answers.component.css'],
 })
 export class AnswersComponent implements OnInit {
-  questions = [];
-  successful: boolean;
-  errorText: string;
+  questions: QuestionWithSeries[] = [];
+  successful!: boolean;
+  errorText = '';
+
+  pieChart: any = {
+    type: 'pie',
+  };
+  barChart: any = {
+    type: 'bar',
+  };
+  pieLabels: string[];
+  barLabels: string[];
+  responsive: ApexResponsive[];
+  plotOptions: ApexPlotOptions;
 
   constructor(
     private route: ActivatedRoute,
     private answerService: AnswerService,
     private questionService: QuestionService
-  ) {}
+  ) {
+    this.plotOptions = {
+      bar: {
+        horizontal: true,
+      },
+    };
 
-  ngOnInit() {
-    let id = this.route.snapshot.queryParamMap.get('id');
+    this.pieLabels = ['Yes', 'No'];
+    this.barLabels = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'];
+    this.responsive = [
+      {
+        breakpoint: 480,
+        options: {
+          chart: {
+            width: 200,
+          },
+          legend: {
+            position: 'bottom',
+          },
+        },
+      },
+    ];
+  }
+
+  ngOnInit(): void {
+    const id = this.route.snapshot.queryParamMap.get('id');
     this.getQuestions(id);
   }
 
-  getQuestions(id) {
+  getQuestions(id: string | null): void {
     this.questionService
       .getQuestions({
-        id: id,
+        id,
       })
       .subscribe(
         (data) => {
-          data.questions.forEach((question) => {
-            let answer;
+          data.questions.forEach((question: Question) => {
             this.answerService.getAnswers(question.id).subscribe(
-              (data) => {
-                this.questions.push({
-                  question: question.text,
-                  questionid: question.id,
-                  style: question.style,
-                  answer: data.answers,
-                });
+              (answerdata) => {
+                if (question.style === 'YESNO') {
+                  this.questions.push({
+                    text: question.text,
+                    id: question.id,
+                    style: question.style,
+                    position: question.position,
+                    series: [
+                      answerdata.answers.reduce(
+                        (n: any, x: any) => n + (x.text === 'yes'),
+                        0
+                      ),
+                      answerdata.answers.reduce(
+                        (n: any, x: any) => n + (x.text === 'no'),
+                        0
+                      ),
+                    ],
+                  });
+                } else if (question.style === 'ONETOTEN') {
+                  this.questions.push({
+                    text: question.text,
+                    id: question.id,
+                    style: question.style,
+                    position: question.position,
+                    series: [
+                      {
+                        data: [
+                          answerdata.answers.reduce(
+                            (n: any, x: any) => n + (x.text === '1'),
+                            0
+                          ),
+                          answerdata.answers.reduce(
+                            (n: any, x: any) => n + (x.text === '2'),
+                            0
+                          ),
+                          answerdata.answers.reduce(
+                            (n: any, x: any) => n + (x.text === '3'),
+                            0
+                          ),
+                          answerdata.answers.reduce(
+                            (n: any, x: any) => n + (x.text === '4'),
+                            0
+                          ),
+                          answerdata.answers.reduce(
+                            (n: any, x: any) => n + (x.text === '5'),
+                            0
+                          ),
+                          answerdata.answers.reduce(
+                            (n: any, x: any) => n + (x.text === '6'),
+                            0
+                          ),
+                          answerdata.answers.reduce(
+                            (n: any, x: any) => n + (x.text === '7'),
+                            0
+                          ),
+                          answerdata.answers.reduce(
+                            (n: any, x: any) => n + (x.text === '8'),
+                            0
+                          ),
+                          answerdata.answers.reduce(
+                            (n: any, x: any) => n + (x.text === '9'),
+                            0
+                          ),
+                          answerdata.answers.reduce(
+                            (n: any, x: any) => n + (x.text === '10'),
+                            0
+                          ),
+                        ],
+                      },
+                    ],
+                  });
+                } else {
+                  this.questions.push({
+                    text: question.text,
+                    id: question.id,
+                    style: question.style,
+                    position: question.position,
+                    answers: answerdata.answers,
+                    series: [],
+                  });
+                }
               },
               (err) => {
                 this.errorText = err.error.message;

@@ -1,3 +1,4 @@
+import { Question } from './../../../interfaces/question';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { QuestionService } from './../../../services/question.service';
@@ -13,9 +14,7 @@ export class CreateSurveyComponent implements OnInit {
   titleFormControl = new FormControl('', [Validators.required]);
   descriptionFormControl = new FormControl('', [Validators.required]);
 
-  questions = [];
-
-
+  questions: Question[] = [];
 
   styles = [
     {
@@ -33,40 +32,40 @@ export class CreateSurveyComponent implements OnInit {
   ];
 
   loading = false;
-  successful: boolean;
-  errorText: string;
-  surveyId: number;
+  successful!: boolean;
+  errorText = '';
+  surveyId!: number;
   lastId = 0;
   isEdit = false;
 
   createButtonEnabled = false;
   nextButtonEnabled = true;
 
-  stringButtonText = "create new survey";
+  stringButtonText = 'create new survey';
 
   constructor(
     private surveyService: SurveyService,
     private questionService: QuestionService,
-	  private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute
   ) {}
 
-	ngOnInit(): void {
-    if (this.activatedRoute.snapshot.queryParams['id']) {
-      //edit survey
-      this.stringButtonText = "save editing";
+  ngOnInit(): void {
+    if (this.activatedRoute.snapshot.queryParams.id) {
+      // edit survey
+      this.stringButtonText = 'save editing';
 
       this.loading = true;
 
       this.isEdit = true;
-      this.surveyId = parseInt(this.activatedRoute.snapshot.queryParams['id']);
+      this.surveyId = parseInt(this.activatedRoute.snapshot.queryParams.id, 10);
 
       this.titleFormControl.disable();
       this.nextButtonEnabled = false;
 
       this.surveyService.getSurvey(this.surveyId).subscribe(
         (data) => {
-          var title = data.survey.title;
-          var description = data.survey.description;
+          const title = data.survey.title;
+          const description = data.survey.description;
 
           this.titleFormControl.setValue(title);
           this.descriptionFormControl.setValue(description);
@@ -84,103 +83,105 @@ export class CreateSurveyComponent implements OnInit {
           this.successful = false;
         }
       );
-
     }
-	}
+  }
 
-
-  onSubmitSurvey() {
+  onSubmitSurvey(): void {
     if (this.titleFormControl.valid && this.descriptionFormControl.valid) {
       this.loading = true;
 
-      if(this.isEdit) {
-        //edit survey
+      if (this.isEdit) {
+        // edit survey
         this.surveyService
-        .editSurvey({
-          title: this.titleFormControl.value,
-          description: this.descriptionFormControl.value,
-          id: this.surveyId
-        })
-        .subscribe(
-          (data) => {
-            this.surveyId = data.id;
-            this.loading = false;
+          .editSurvey({
+            title: this.titleFormControl.value,
+            description: this.descriptionFormControl.value,
+            id: this.surveyId,
+          })
+          .subscribe(
+            (data) => {
+              this.surveyId = data.id;
+              this.loading = false;
 
-            this.loadExistingQuestions();
-          },
-          (err) => {
-            this.errorText = err.error.message;
-            this.loading = false;
-            this.successful = false;
-          }
-        );
+              this.loadExistingQuestions();
+            },
+            (err) => {
+              this.errorText = err.error.message;
+              this.loading = false;
+              this.successful = false;
+            }
+          );
       } else {
-        //new survey
+        // new survey
         this.surveyService
-        .createSurvey({
-          title: this.titleFormControl.value,
-          description: this.descriptionFormControl.value,
-        })
-        .subscribe(
-          (data) => {
-            this.surveyId = data.id;
-            this.loading = false;
-          },
-          (err) => {
-            this.errorText = err.error.message;
-            this.loading = false;
-            this.successful = false;
-          }
-        );
+          .createSurvey({
+            title: this.titleFormControl.value,
+            description: this.descriptionFormControl.value,
+          })
+          .subscribe(
+            (data) => {
+              this.surveyId = data.id;
+              this.loading = false;
+            },
+            (err) => {
+              this.errorText = err.error.message;
+              this.loading = false;
+              this.successful = false;
+            }
+          );
       }
     } else {
       console.log('Input not valid!');
     }
   }
 
-
-  loadExistingQuestions() {
+  loadExistingQuestions(): void {
     this.loading = true;
     this.createButtonEnabled = false;
 
-    this.questionService.getQuestions({
-      id: this.surveyId
-    }).subscribe(
-      (data) => {
-        data.questions.forEach((question) => {
-          this.addQuestionWithData(question.text, question.style);
-        });
-        this.loading = false;
-      },
-      (err) => {
-        this.errorText = err.error.message;
-        this.loading = false;
-        this.successful = false;
-      }
-    );
-
+    this.questionService
+      .getQuestions({
+        id: this.surveyId,
+      })
+      .subscribe(
+        (data) => {
+          data.questions.forEach((question: Question) => {
+            this.addQuestionWithData(
+              question.text,
+              question.style,
+              question.position
+            );
+          });
+          this.loading = false;
+        },
+        (err) => {
+          this.errorText = err.error.message;
+          this.loading = false;
+          this.successful = false;
+        }
+      );
   }
 
-  onSubmitQuestions() {
+  onSubmitQuestions(): void {
     this.loading = true;
 
-    if(this.isEdit) {
+    if (this.isEdit) {
       this.questionService.clearAllQuestions(this.surveyId).toPromise();
     }
 
-
-
-    let data = [];
+    const data: Question[] = [];
     this.questions.forEach((question) => {
       data.push({
-        position: question.id,
+        id: question.id,
         style: question.style,
         text: question.text,
+        position: question.position,
         surveyId: this.surveyId,
       });
     });
     this.questionService.addQuestions(data).subscribe(
-      (data) => {},
+      // tslint:disable-next-line: variable-name
+      (_data) => {},
       (err) => {
         this.errorText = err.error.message;
         this.loading = false;
@@ -189,39 +190,37 @@ export class CreateSurveyComponent implements OnInit {
     );
     this.loading = false;
     this.successful = true;
-
-
-
-
   }
 
-  addQuestion() {
+  addQuestion(): void {
     this.createButtonEnabled = true;
 
     this.questions.push({
       id: this.lastId + 1,
       style: '',
       text: '',
+      position: -1,
     });
     this.lastId++;
   }
 
-  addQuestionWithData(text: string, style: string) {
+  addQuestionWithData(text: string, style: string, position: number): void {
     this.createButtonEnabled = true;
 
     this.questions.push({
       id: this.lastId + 1,
-      style: style,
-      text: text,
+      style,
+      text,
+      position,
     });
     this.lastId++;
   }
 
-  removeQuestion(i: number) {
-    let position = this.questions.findIndex((x) => x.id === i);
+  removeQuestion(i: number): void {
+    const position = this.questions.findIndex((x) => x.id === i);
     this.questions.splice(position, 1);
 
-    if(this.questions.length == 0) {
+    if (this.questions.length === 0) {
       this.createButtonEnabled = false;
     }
   }

@@ -31,17 +31,21 @@ export class LoginComponent implements OnInit {
   ) {}
 
   loading = false;
-  successful: boolean;
-  errorText: string;
+  successful!: boolean;
+  errorText = '';
   submitted = false;
 
   isLoggedIn = false;
 
-  returnUrl: string;
+  returnUrl = '';
 
-  ngOnInit() {
-    this.returnUrl =
+  ngOnInit(): void {
+    const returnUrlString: string | null =
       this.activatedRoute.snapshot.queryParamMap.get('returnUrl');
+    if (returnUrlString != null) {
+      this.returnUrl = returnUrlString;
+    }
+
     if (this.returnUrl) {
       this.snackBar.open('Please login in order to continue', 'Close', {
         duration: 5000,
@@ -55,7 +59,7 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  onSubmit() {
+  onSubmit(): void {
     if (this.usernameFormControl.valid && this.passwordFormControl.valid) {
       this.loading = true;
       this.submitted = true;

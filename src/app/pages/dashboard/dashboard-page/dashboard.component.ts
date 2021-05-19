@@ -1,6 +1,7 @@
 import { Clipboard } from '@angular/cdk/clipboard';
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Survey } from 'src/app/interfaces/survey';
 import { QuestionService } from './../../../services/question.service';
 import { SurveyService } from './../../../services/survey.service';
 
@@ -10,10 +11,10 @@ import { SurveyService } from './../../../services/survey.service';
   styleUrls: ['./dashboard.component.css'],
 })
 export class DashboardComponent implements OnInit {
-  surveys = [];
+  surveys: Survey[] = [];
   loading = true;
-  successful: boolean;
-  errorText: string;
+  successful!: boolean;
+  errorText = '';
 
   constructor(
     private surveyService: SurveyService,
@@ -22,7 +23,7 @@ export class DashboardComponent implements OnInit {
     private clipboard: Clipboard
   ) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.surveyService.getOwnSurveys().subscribe(
       (data) => {
         this.surveys = data.surveys;
@@ -37,7 +38,7 @@ export class DashboardComponent implements OnInit {
     );
   }
 
-  getQuestions() {
+  getQuestions(): void {
     this.surveys.forEach((survey) => {
       this.questionService.getQuestions(survey).subscribe(
         (data) => {
@@ -54,8 +55,8 @@ export class DashboardComponent implements OnInit {
     this.successful = true;
   }
 
-  copyShareUrl(id: number) {
-    this.clipboard.copy('https://simplesurvey.de//fillout?id=' + id);
+  copyShareUrl(id: number): void {
+    this.clipboard.copy('https://simplesurvey.de/fillout?id=' + id);
     this.snackBar.open('Link copied to clipboard!', 'Close', {
       duration: 3000,
     });
@@ -63,10 +64,12 @@ export class DashboardComponent implements OnInit {
 
   deleteSurvey(id: number) {
     this.surveyService.deleteSurvey(id).subscribe(
-      (data) => {
+      // tslint:disable-next-line: variable-name
+      (_data) => {
         window.location.reload();
       },
-      (err) => {
+      // tslint:disable-next-line: variable-name
+      (_err) => {
         this.snackBar.open('Survey could not be deleted.', 'Close', {
           duration: 3000,
         });
