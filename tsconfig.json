@@ -15,18 +15,18 @@
       "es2018",
       "dom"
     ],
-    "strict": true,
-    "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true,
-    "esModuleInterop": true,
-    "noImplicitReturns": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
+    // "strict": true,
+    // "skipLibCheck": true,
+    // "forceConsistentCasingInFileNames": true,
+    // "esModuleInterop": true,
+    // "noImplicitReturns": true,
+    // "noUnusedLocals": true,
+    // "noUnusedParameters": true,
   },
   "angularCompilerOptions": {
     "fullTemplateTypeCheck": true,
     "strictInjectionParameters": true,
-    "strictInputAccessModifiers": true,
-    "strictTemplates": true
+    // "strictInputAccessModifiers": true,
+    // "strictTemplates": true
   }
 }

@@ -64,10 +64,12 @@ export class DashboardComponent implements OnInit {
 
   deleteSurvey(id: number) {
     this.surveyService.deleteSurvey(id).subscribe(
-      (data) => {
+      // tslint:disable-next-line: variable-name
+      (_data) => {
         window.location.reload();
       },
-      (err) => {
+      // tslint:disable-next-line: variable-name
+      (_err) => {
         this.snackBar.open('Survey could not be deleted.', 'Close', {
           duration: 3000,
         });
