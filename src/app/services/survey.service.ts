@@ -52,4 +52,15 @@ export class SurveyService {
       httpOptions
     );
   }
+
+  deleteSurvey(id: number): Observable<any> {
+    return this.http.post(
+      SURVEY_API + 'deletesurvey',
+      {
+        surveyId: id,
+      },
+      httpOptions
+    );
+  }
+
 }
