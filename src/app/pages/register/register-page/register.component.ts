@@ -24,7 +24,7 @@ export class RegisterComponent {
 
   loading = false;
   successful!: boolean;
-  errorText: string = '';
+  errorText = '';
   submitted = false;
 
   onSubmit(): void {
@@ -37,12 +37,13 @@ export class RegisterComponent {
           password: this.passwordFormControl.value,
         })
         .subscribe(
+          // tslint:disable-next-line: variable-name
           (_data) => {
             this.loading = false;
             this.successful = true;
           },
           (err) => {
-            if (err.error.message == 'Error: Username is already taken!') {
+            if (err.error.message === 'Error: Username is already taken!') {
               this.usernameFormControl.setErrors({ incorrect: true });
             }
             this.errorText = err.error.message;

@@ -21,8 +21,8 @@ export class FilloutComponent implements OnInit {
   questions: QuestionWithAnswer[] = [];
   loading = true;
   successful!: boolean;
-  errorText: string = '';
-  answersSent: boolean = false;
+  errorText = '';
+  answersSent = false;
 
   constructor(
     private answerService: AnswerService,
@@ -35,7 +35,7 @@ export class FilloutComponent implements OnInit {
     const idString: string | null =
       this.activatedRoute.snapshot.queryParamMap.get('id');
     if (idString != null) {
-      this.id = parseInt(idString);
+      this.id = parseInt(idString, 10);
     }
 
     if (this.id) {
@@ -97,7 +97,7 @@ export class FilloutComponent implements OnInit {
   }
 
   onSubmitQuestions(): void {
-    let answers: Answer[] = [];
+    const answers: Answer[] = [];
     this.questions.forEach((question) => {
       answers.push({
         questionId: question.id,
@@ -105,6 +105,7 @@ export class FilloutComponent implements OnInit {
       });
     });
     this.answerService.addAnswers(answers).subscribe(
+      // tslint:disable-next-line: variable-name
       (_data) => {
         this.answersSent = true;
       },

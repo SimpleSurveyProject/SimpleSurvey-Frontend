@@ -30,14 +30,14 @@ export class LoginComponent implements OnInit {
     private tokenStorageService: TokenStorageService
   ) {}
 
-  loading: boolean = false;
+  loading = false;
   successful!: boolean;
-  errorText: string = '';
-  submitted: boolean = false;
+  errorText = '';
+  submitted = false;
 
   isLoggedIn = false;
 
-  returnUrl: string = '';
+  returnUrl = '';
 
   ngOnInit(): void {
     const returnUrlString: string | null =

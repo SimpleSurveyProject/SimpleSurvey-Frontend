@@ -25,7 +25,7 @@ export class QuestionService {
     return this.http.post(
       QUESTION_API + 'clear',
       {
-        surveyId: surveyId,
+        surveyId,
       },
       httpOptions
     );

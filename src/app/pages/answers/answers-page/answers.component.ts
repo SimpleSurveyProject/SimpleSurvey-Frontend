@@ -13,7 +13,7 @@ import { QuestionService } from './../../../services/question.service';
 export class AnswersComponent implements OnInit {
   questions: QuestionWithSeries[] = [];
   successful!: boolean;
-  errorText: string = '';
+  errorText = '';
 
   pieChart: any = {
     type: 'pie',
@@ -55,38 +55,38 @@ export class AnswersComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    let id = this.route.snapshot.queryParamMap.get('id');
+    const id = this.route.snapshot.queryParamMap.get('id');
     this.getQuestions(id);
   }
 
   getQuestions(id: string | null): void {
     this.questionService
       .getQuestions({
-        id: id,
+        id,
       })
       .subscribe(
         (data) => {
           data.questions.forEach((question: Question) => {
             this.answerService.getAnswers(question.id).subscribe(
-              (data) => {
-                if (question.style == 'YESNO') {
+              (answerdata) => {
+                if (question.style === 'YESNO') {
                   this.questions.push({
                     text: question.text,
                     id: question.id,
                     style: question.style,
                     position: question.position,
                     series: [
-                      data.answers.reduce(
-                        (n: any, x: any) => n + (x.text == 'yes'),
+                      answerdata.answers.reduce(
+                        (n: any, x: any) => n + (x.text === 'yes'),
                         0
                       ),
-                      data.answers.reduce(
-                        (n: any, x: any) => n + (x.text == 'no'),
+                      answerdata.answers.reduce(
+                        (n: any, x: any) => n + (x.text === 'no'),
                         0
                       ),
                     ],
                   });
-                } else if (question.style == 'ONETOTEN') {
+                } else if (question.style === 'ONETOTEN') {
                   this.questions.push({
                     text: question.text,
                     id: question.id,
@@ -95,44 +95,44 @@ export class AnswersComponent implements OnInit {
                     series: [
                       {
                         data: [
-                          data.answers.reduce(
-                            (n: any, x: any) => n + (x.text == '1'),
+                          answerdata.answers.reduce(
+                            (n: any, x: any) => n + (x.text === '1'),
                             0
                           ),
-                          data.answers.reduce(
-                            (n: any, x: any) => n + (x.text == '2'),
+                          answerdata.answers.reduce(
+                            (n: any, x: any) => n + (x.text === '2'),
                             0
                           ),
-                          data.answers.reduce(
-                            (n: any, x: any) => n + (x.text == '3'),
+                          answerdata.answers.reduce(
+                            (n: any, x: any) => n + (x.text === '3'),
                             0
                           ),
-                          data.answers.reduce(
-                            (n: any, x: any) => n + (x.text == '4'),
+                          answerdata.answers.reduce(
+                            (n: any, x: any) => n + (x.text === '4'),
                             0
                           ),
-                          data.answers.reduce(
-                            (n: any, x: any) => n + (x.text == '5'),
+                          answerdata.answers.reduce(
+                            (n: any, x: any) => n + (x.text === '5'),
                             0
                           ),
-                          data.answers.reduce(
-                            (n: any, x: any) => n + (x.text == '6'),
+                          answerdata.answers.reduce(
+                            (n: any, x: any) => n + (x.text === '6'),
                             0
                           ),
-                          data.answers.reduce(
-                            (n: any, x: any) => n + (x.text == '7'),
+                          answerdata.answers.reduce(
+                            (n: any, x: any) => n + (x.text === '7'),
                             0
                           ),
-                          data.answers.reduce(
-                            (n: any, x: any) => n + (x.text == '8'),
+                          answerdata.answers.reduce(
+                            (n: any, x: any) => n + (x.text === '8'),
                             0
                           ),
-                          data.answers.reduce(
-                            (n: any, x: any) => n + (x.text == '9'),
+                          answerdata.answers.reduce(
+                            (n: any, x: any) => n + (x.text === '9'),
                             0
                           ),
-                          data.answers.reduce(
-                            (n: any, x: any) => n + (x.text == '10'),
+                          answerdata.answers.reduce(
+                            (n: any, x: any) => n + (x.text === '10'),
                             0
                           ),
                         ],
@@ -145,7 +145,7 @@ export class AnswersComponent implements OnInit {
                     id: question.id,
                     style: question.style,
                     position: question.position,
-                    answers: data.answers,
+                    answers: answerdata.answers,
                     series: [],
                   });
                 }

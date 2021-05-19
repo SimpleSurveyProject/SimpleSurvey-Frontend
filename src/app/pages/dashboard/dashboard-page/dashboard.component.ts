@@ -12,9 +12,9 @@ import { SurveyService } from './../../../services/survey.service';
 })
 export class DashboardComponent implements OnInit {
   surveys: Survey[] = [];
-  loading: boolean = true;
+  loading = true;
   successful!: boolean;
-  errorText: string = '';
+  errorText = '';
 
   constructor(
     private surveyService: SurveyService,

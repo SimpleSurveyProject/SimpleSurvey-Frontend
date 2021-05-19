@@ -21,10 +21,6 @@ export class AnswerService {
   }
 
   getAnswers(questionId: number): Observable<any> {
-    return this.http.post(
-      ANSWER_API + 'get',
-      { questionId: questionId },
-      httpOptions
-    );
+    return this.http.post(ANSWER_API + 'get', { questionId }, httpOptions);
   }
 }

@@ -34,7 +34,7 @@ export class TokenStorageService {
   public getUser(): any {
     const userKey: string | null = localStorage.getItem(USER_KEY);
     if (userKey != null) {
-      return userKey;
+      return JSON.parse(userKey);
     }
     return '';
   }

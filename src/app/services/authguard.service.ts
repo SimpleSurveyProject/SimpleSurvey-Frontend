@@ -17,6 +17,7 @@ export class AuthGuard implements CanActivate {
   ) {}
 
   canActivate(
+    // tslint:disable-next-line: variable-name
     _route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): boolean {
