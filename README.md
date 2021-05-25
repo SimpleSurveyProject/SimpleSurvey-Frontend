@@ -1,5 +1,7 @@
 # SimpleSurveyFrontend
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/726d279501b342dc9f677d3b09a4d1d3)](https://app.codacy.com/gh/SimpleSurveyProject/SimpleSurvey-Frontend?utm_source=github.com&utm_medium=referral&utm_content=SimpleSurveyProject/SimpleSurvey-Frontend&utm_campaign=Badge_Grade_Settings)
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.1.0.
 
 ## Development server
