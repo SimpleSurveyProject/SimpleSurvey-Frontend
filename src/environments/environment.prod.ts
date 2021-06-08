@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: 'https://simplesurvey.de/springapi/',
+  apiUrl: '${BACKEND_URL}',
 };
