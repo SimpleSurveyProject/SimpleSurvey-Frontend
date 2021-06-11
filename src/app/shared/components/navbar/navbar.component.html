@@ -1,5 +1,5 @@
 <mat-toolbar color="primary">
-  <span>SimpleSurvey</span>
+  <span (click)="onLogoClick()" style="cursor: pointer">SimpleSurvey</span>
   <span class="spacer"></span>
   <button mat-button [routerLink]="''">Home</button>
   <button mat-button *ngIf="isLoggedIn" [routerLink]="'/dashboard'">
