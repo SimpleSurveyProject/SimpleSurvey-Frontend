@@ -1,1 +1,50 @@
-<mat-card class="content">Welcome to SimpleSurvey.de! We hope, you like it!</mat-card>
+<div style="height: 20%; background-color: rgb(205, 205, 205)">
+  <img
+    class="center"
+    style="max-height: 100%; max-width: 100%"
+    src="assets/header.jpg"
+    alt="Header"
+  />
+</div>
+<mat-card class="content"
+  >Welcome to SimpleSurvey.de! We hope, you like it!</mat-card
+>
+
+<div class="container" style="margin-top: 3%" *ngIf="loggedIn">
+  <div
+    (click)="onDashboardClick()"
+    class="content card"
+    style="cursor: pointer"
+  >
+    <mat-card style="margin-left: 5%">
+      <mat-card-header>
+        <mat-card-title>Dashboard</mat-card-title>
+      </mat-card-header>
+      <img mat-card-image src="assets/dashboard.png" alt="Dashboard" />
+    </mat-card>
+  </div>
+
+  <div (click)="onFilloutClick()" class="content card" style="cursor: pointer">
+    <mat-card style="margin-left: 5%">
+      <mat-card-header>
+        <mat-card-title>Fill out survey</mat-card-title>
+      </mat-card-header>
+      <img mat-card-image src="assets/fillout.jpg" alt="Fillout" />
+    </mat-card>
+  </div>
+
+  <div (click)="onProfileClick()" class="content card" style="cursor: pointer">
+    <mat-card style="margin-left: 5%">
+      <mat-card-header>
+        <mat-card-title>Profile</mat-card-title>
+      </mat-card-header>
+      <img mat-card-image src="assets/profile.jpg" alt="Profile" />
+    </mat-card>
+  </div>
+
+  <div *ngIf="!loggedIn">
+    <mat-card class="content"
+      >Please log in to use all features for free.</mat-card
+    >
+  </div>
+</div>
